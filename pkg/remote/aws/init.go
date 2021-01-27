@@ -2,6 +2,7 @@ package aws
 
 import (
 	"github.com/aws/aws-sdk-go/service/iam"
+	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/cloudskiff/driftctl/pkg/alerter"
 	"github.com/cloudskiff/driftctl/pkg/resource"
 	"github.com/cloudskiff/driftctl/pkg/terraform"
@@ -63,6 +64,7 @@ func Init(alerter *alerter.Alerter) error {
 	resource.AddSupplier(NewRouteTableAssociationSupplier(provider.Runner(), ec2.New(provider.session)))
 	resource.AddSupplier(NewNatGatewaySupplier(provider.Runner(), ec2.New(provider.session)))
 	resource.AddSupplier(NewInternetGatewaySupplier(provider.Runner().SubRunner(), ec2.New(provider.session)))
+	resource.AddSupplier(NewSqsQueueSupplier(provider.Runner().SubRunner(), sqs.New(provider.session)))
 
 	return nil
 }
