@@ -65,6 +65,7 @@ func Init(alerter *alerter.Alerter) error {
 	resource.AddSupplier(NewNatGatewaySupplier(provider.Runner(), ec2.New(provider.session)))
 	resource.AddSupplier(NewInternetGatewaySupplier(provider.Runner().SubRunner(), ec2.New(provider.session)))
 	resource.AddSupplier(NewSqsQueueSupplier(provider.Runner().SubRunner(), sqs.New(provider.session)))
+	resource.AddSupplier(NewSqsQueuePolicySupplier(provider.Runner().SubRunner(), sqs.New(provider.session)))
 
 	return nil
 }
